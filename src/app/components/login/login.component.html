@@ -1,0 +1,21 @@
+<div class="row m-2">
+	<div class="col-sm-6 border border-dark rounded p-3 mx-auto bg-light">
+		<h1 class="text-center">My Bucket List</h1>
+		<h6 class="text-center text-secondary">Cool things to do before I kick a bucket</h6>
+		<form>
+		  <div class="form-group">
+		    <label>Login</label>
+		    <input type="text" class="form-control" id="loginInput" placeholder="Login" [(ngModel)]="username" name="username">
+		  </div>
+		  <div class="form-group">
+		    <label>Password</label>
+		    <input type="password" class="form-control" id="passwordInput" placeholder="Password" [(ngModel)]="password" name="password">
+		  </div>
+		  <button type="submit" class="btn btn-dark" (click)="loginClick($event)">Login</button>
+		  <a routerLink="/new" class="float-right text-dark">Create new account</a>
+		</form>
+		<div *ngIf="loginError" class="alert alert-danger mt-4">
+		  Incorrect login or password
+		</div>
+	</div>	
+</div>

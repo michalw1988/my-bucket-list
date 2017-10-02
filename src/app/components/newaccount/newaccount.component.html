@@ -1,0 +1,28 @@
+<div class="row m-2">
+	<div class="col-sm-6 border border-dark rounded p-3 mx-auto bg-light">
+		<h1 class="text-center">Create new account</h1>
+		<form>
+		  <div class="form-group">
+		    <label>Login</label>
+		    <input type="text" class="form-control" placeholder="Login" [(ngModel)]="username" name="username">
+		  </div>
+		  <div class="form-group">
+		    <label>Password</label>
+		    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password1" name="password1">
+		  </div>
+		  <div class="form-group">
+		    <label>Confirm password</label>
+		    <input type="password" class="form-control" placeholder="Confirm password" [(ngModel)]="password2" name="password2">
+		  </div>
+			<button type="submit" class="btn btn-dark" (click)="createClick($event)">Create</button>
+		  <a routerLink="/login" class="float-right text-dark">Back to login page</a>
+		</form>
+		<div *ngIf="errorMessage" class="alert alert-danger mt-4">
+		  {{ errorMessage }}
+		</div>
+		<div *ngIf="accountCreated" class="alert alert-success mt-4">
+		  Account created. You can now login.
+		</div>
+	</div>	
+</div>
+
