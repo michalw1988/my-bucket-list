@@ -3,6 +3,8 @@
 <div class="container pt-2 pb-3 bg-light">
 	<h4 class="text-center">Account settings</h4>
 	<p>Here you can change your account's password or remove it permanently if you don't want to use it anymore.</p>
+	
+	<!-- Change password section -->
 	<h5>Change password</h5>
 	<div class="form-group">
 	  <label>New password</label>
@@ -13,14 +15,18 @@
 	  <input type="password" class="form-control" placeholder="Confirm password" [(ngModel)]="password2" name="password2">
 	</div>
 	<button type="submit" class="btn btn-dark" (click)="changePasswordClick($event)">Change</button>
+	
+	<!-- Alerts for changing password -->
 	<div *ngIf="errorMessage" class="alert alert-danger mt-4">
 	  {{ errorMessage }}
 	</div>
 	<div *ngIf="passwordChanged" class="alert alert-success mt-4">
 	 	Your password has been changed.
 	</div>
+
 	<hr>
 
+	<!-- Delete account section -->
 	<h5>Delete account</h5>
 	<p>Be careful! You cannot undo this.</p>
 	<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">Delete</button>
@@ -50,3 +56,5 @@
     </div>
   </div>
 </div>
+
+<app-loader *ngIf="loaderNeeded"></app-loader>

@@ -14,6 +14,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  // Handle click on "Logout" link
   logoutClick(e) {
     e.preventDefault();
     sessionStorage.removeItem('mybucketlist_user');

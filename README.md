@@ -1,28 +1,24 @@
-# MyBucketList
+# My Bucket List
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
+This is a MEAN stack application that allows a user to create his bucket list.
 
-## Development server
+What is a bucket list? It's just a list of activities someone wants to do before he/she dies. It probably originates from the 2007 movie by Rob Reiner.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+With this application, any user can:
+* create and manage his account
+* login to application (as well as logout from it)
+* create and manage his goal
 
-## Code scaffolding
+### Technology
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+Front-end layer uses **Angular 4** framework with addition of **Bootstrap 4** for UI styling.
 
-## Build
+SessionStorage is used to keep user logged id.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+API is built on **Node.js**, **Express** and **MongoDB** database hosted on https://mlab.com/
 
-## Running unit tests
+### API
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The application communicates with a REST API available under the URL: https://my-bucket-list-api.herokuapp.com/
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+API documentation and repository can be found here: https://github.com/michalw1988/my-bucket-list-api

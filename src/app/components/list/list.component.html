@@ -5,23 +5,34 @@
 	<p>This is your bucket list. Would you like to add something? Or maybe you have just accomplished one of your goals?</p>
 	<hr>
 	
+	<!-- Message for new accounts (with no goals set already) -->
 	<div class="alert alert-secondary text-center" *ngIf="goalsCount === 0">
 		It seems you don't have any goals on your bucket list yet. Go ahead and add something!
 	</div>
 
-	<div class="alert alert-secondary" [ngClass]="{'alert-success': item.done}" *ngFor="let item of userData.list">
+	<!-- Goals list -->
+	<div class="alert alert-secondary" [ngClass]="{'alert-success': item.done}" *ngFor="let item of userData.list">	
+		<!-- Edit icon -->
+		<i class="fa fa-edit link-icon" data-id="{{ item.id }}" data-toggle="modal" data-target="#editGoalModal" (click)="saveGoalData($event)"></i>
+		<!-- Goal description -->
 		<span class="font-weight-bold">{{ item.goal }}</span>
+		<!-- Buttons -->
 		<span class="float-right">
+			<!-- "I did it!" button -->
 			<button class="btn btn-success btn-sm" *ngIf="!item.done" data-id="{{ item.id }}" (click)="completeGoalClick($event)">I did it!</button>
+			<!-- "Remove goal" button -->
 			<button class="btn btn-dark btn-sm" data-id="{{ item.id }}" data-toggle="modal" data-target="#deleteGoalModal" (click)="saveGoalId($event)">Remove goal</button>
 		</span>
+
 		<hr class="mb-0">
+		<!-- Dates -->
 		<small class="text-secondary">
 			<span class="font-weight-bold mr-2" *ngIf="item.done">Done: {{ item.date_done }}</span>
 			<span>Added: {{ item.date_added }}</span>
 		</small>
 	</div>
-
+	
+	<!-- "Add new goal" button -->
 	<button type="submit" class="btn btn-success mt-0" data-toggle="modal" data-target="#addGoalModal">Add new goal</button>
 </div>
 
@@ -39,14 +50,71 @@
         </button>
       </div>
       <div class="modal-body">
+      	<!-- Goal description -->
         <div class="form-group">
 				  <label>What do you want to achieve?</label>
 				  <input type="text" class="form-control" placeholder="Enter your goal" [(ngModel)]="newGoal" name="newGoal">
 				</div>
+				<!-- Error alert -->
+				<div *ngIf="addErrorMessage" class="alert alert-danger mt-4">
+				  {{ addErrorMessage }}
+				</div>
       </div>
+      <!-- Buttons -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="addGoalClick($event)">Add</button>
+        <button type="button" class="btn btn-success" (click)="addGoalClick($event)">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Goal Modal -->
+<div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog" aria-labelledby="editGoalModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit this goal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+					<!-- Goal description -->
+	        <div class="form-group">
+					  <label>Goal description</label>
+					  <input type="text" class="form-control" placeholder="Goal description" [(ngModel)]="editedGoal" name="editedGoal">
+					</div>
+					<!-- Goal creation date -->
+					<div class="form-group">
+					  <label>Added on</label>
+					  <input type="text" class="form-control" placeholder="Added on" [(ngModel)]="editedDateAdded" name="editedDateAdded">
+					</div>
+					<!-- Goal completion dropdown (present only for completed goals) -->
+					<div class="form-group" *ngIf="editedDone">
+					  <label>Done?</label>
+					  <select class="form-control" [(ngModel)]="editedDone">
+					    <option value="true">Yes</option>
+					    <option value="false">No</option>
+					  </select>
+					</div>
+					<!-- Goal completion date (present only for completed goals) -->
+					<div class="form-group" *ngIf="editedDone && editedDone !== 'false'">
+					  <label>Done on</label>
+					  <input type="text" class="form-control" placeholder="Done on" [(ngModel)]="editedDateDone" name="editedDateDone">
+					</div>
+					<!-- Error alert -->
+					<div *ngIf="editErrorMessage" class="alert alert-danger mt-4">
+					  {{ editErrorMessage }}
+					</div>
+				</div>
+      </div>
+      <!-- Buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="editGoalClick($event)">Save</button>
       </div>
     </div>
   </div>
@@ -75,3 +143,5 @@
     </div>
   </div>
 </div>
+
+<app-loader *ngIf="loaderNeeded"></app-loader>

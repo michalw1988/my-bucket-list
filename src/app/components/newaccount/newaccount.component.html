@@ -1,6 +1,8 @@
 <div class="row m-2">
 	<div class="col-sm-6 border border-dark rounded p-3 mx-auto bg-light">
 		<h1 class="text-center">Create new account</h1>
+		
+		<!-- Form for creating new account -->
 		<form>
 		  <div class="form-group">
 		    <label>Login</label>
@@ -17,12 +19,16 @@
 			<button type="submit" class="btn btn-dark" (click)="createClick($event)">Create</button>
 		  <a routerLink="/login" class="float-right text-dark">Back to login page</a>
 		</form>
+
+		<!-- Alerts -->
 		<div *ngIf="errorMessage" class="alert alert-danger mt-4">
 		  {{ errorMessage }}
 		</div>
 		<div *ngIf="accountCreated" class="alert alert-success mt-4">
 		  Account created. You can now login.
 		</div>
+
 	</div>	
 </div>
 
+<app-loader *ngIf="loaderNeeded"></app-loader>

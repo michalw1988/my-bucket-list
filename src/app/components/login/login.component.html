@@ -2,6 +2,8 @@
 	<div class="col-sm-6 border border-dark rounded p-3 mx-auto bg-light">
 		<h1 class="text-center">My Bucket List</h1>
 		<h6 class="text-center text-secondary">Cool things to do before I kick a bucket</h6>
+		
+		<!-- Form for logging in -->
 		<form>
 		  <div class="form-group">
 		    <label>Login</label>
@@ -14,8 +16,13 @@
 		  <button type="submit" class="btn btn-dark" (click)="loginClick($event)">Login</button>
 		  <a routerLink="/new" class="float-right text-dark">Create new account</a>
 		</form>
+
+		<!-- Error alert -->
 		<div *ngIf="loginError" class="alert alert-danger mt-4">
 		  Incorrect login or password
 		</div>
+
 	</div>	
 </div>
+
+<app-loader *ngIf="loaderNeeded"></app-loader>

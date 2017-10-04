@@ -13,26 +13,33 @@ export class SettingsComponent implements OnInit {
 	password2 = '';
 	errorMessage = '';
 	passwordChanged = false;
+	loaderNeeded = false;
 
   constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
   }
 
+
+  // Handle click on "Change" button
   changePasswordClick(e) {
   	e.preventDefault();
   	this.passwordChanged = false;
-  	if (this.password1 === '' || this.password2 === '') {
+  	if (this.password1 === '' || this.password2 === '') { // check if both passwords are entered
   		this.errorMessage = 'Enter both passwords.';
-  	} else if (this.password1 != this.password2) {
+  	} else if (this.password1 !== this.password2) { // check if passwords are identical
   		this.errorMessage = "Passwords don't match.";
   	} else {
-  		this.changePassword();
+  		this.changePassword(); // change password if validation passed
   	}
   }
 
+
+  // Call changepassword request from data service 
   changePassword() {
+  	this.loaderNeeded = true;
   	this.dataService.changepasswordRequest(this.dataService.username, this.password1).subscribe(response => {
+  		this.loaderNeeded = false;
   	  this.errorMessage = '';
   	  this.password1 = '';
 			this.password2 = '';
@@ -40,11 +47,18 @@ export class SettingsComponent implements OnInit {
   	});
   }
 
+
+  // Handle click on "Confirm" button for removing user's account
   removeAccountClick(e) {
   	e.preventDefault();
+  	this.loaderNeeded = true;
+  	// Call deleteuser request from data service
   	this.dataService.deleteuserRequest(this.dataService.username).subscribe(response => {
+  		this.loaderNeeded = false;
   	  if(response.message === 'User deleted') {
+  	  	// Log the user out, removes his username from session storage and navigate him to login page
   	  	this.dataService.logoutUser();
+  	  	sessionStorage.removeItem('mybucketlist_user');
     		this.router.navigate(['/login']);
   	  }
   	});

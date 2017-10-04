@@ -13,7 +13,9 @@ import { ListComponent } from './components/list/list.component';
 import { AboutComponent } from './components/about/about.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewaccountComponent } from './components/newaccount/newaccount.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
+// Application routes
 const appRoutes: Routes = [
   {path: '', component: AppComponent},
   {path: 'login', component: LoginComponent},
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     ListComponent,
     AboutComponent,
     SettingsComponent,
-    NewaccountComponent
+    NewaccountComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

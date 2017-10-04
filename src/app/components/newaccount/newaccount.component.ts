@@ -13,48 +13,52 @@ export class NewaccountComponent implements OnInit {
 	password2 = '';
 	errorMessage = '';
 	accountCreated = false;
+	loaderNeeded = false;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
 
+
+  // Handle click on "Create" button
   createClick(e) {
   	e.preventDefault();
   	this.accountCreated = false;
-  	// console.log(this.username);
-  	// console.log(this.password1);
-  	// console.log(this.password2);
-  	if (this.username == '' || this.password1 == '' || this.password2 == '') {
+  	if (this.username == '' || this.password1 == '' || this.password2 == '') { // check if all fields are filled
   		this.errorMessage = 'Fill the entire form.';
-  	} else if (this.password1 != this.password2) {
+  	} else if (this.password1 != this.password2) { // check if apsswords match
   		this.errorMessage = "Passwords don't match.";
   	} else {
-  		this.checkUsername();
+  		this.checkUsername(); // if validation passed, check if username is free
   	}
   }
 
+
+  // Call checkusername request from data service
   checkUsername() {
+  	this.loaderNeeded = true;
   	this.dataService.checkusernameRequest(this.username).subscribe(response => {
-  	  //console.log(response.message);
 		  if(response.message === 'Username is free') {
-		  	this.createAccount()
+		  	this.createAccount(); // if username is free, creates a new account
 			} else {
+		  	this.loaderNeeded = false;
 		  	this.errorMessage = 'This username is already taken.';
 			}
 		});
   }
 
+
+  // Call newuser request from data service
   createAccount() {
   	this.dataService.newuserRequest(this.username, this.password1).subscribe(response => {
-  		//console.log(response);
+  		this.loaderNeeded = false;
   		if(response.message === 'User created') {
   			this.errorMessage = '';
   			this.username = '';
 				this.password1 = '';
 				this.password2 = '';
   			this.accountCreated = true;
-
   		}
   	});
   }
